@@ -1,12 +1,11 @@
 package com.example.sfgtdd.sfgjuni5testing.petclinic.model;
 
-import org.junit.jupiter.api.Tag;
+import com.example.sfgtdd.sfgjuni5testing.petclinic.ModelTests;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Tag("model")
-class OwnerTest {
+class OwnerTest implements ModelTests {
 
     @Test
     void nestedAssertionsDemo() {

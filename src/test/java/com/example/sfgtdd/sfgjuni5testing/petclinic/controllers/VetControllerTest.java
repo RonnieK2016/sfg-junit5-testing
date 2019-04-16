@@ -1,5 +1,6 @@
 package com.example.sfgtdd.sfgjuni5testing.petclinic.controllers;
 
+import com.example.sfgtdd.sfgjuni5testing.petclinic.ControllerTests;
 import com.example.sfgtdd.sfgjuni5testing.petclinic.fauxspring.Model;
 import com.example.sfgtdd.sfgjuni5testing.petclinic.fauxspring.impl.ModelImpl;
 import com.example.sfgtdd.sfgjuni5testing.petclinic.model.Speciality;
@@ -16,8 +17,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Tag("controllers")
-class VetControllerTest {
+class VetControllerTest implements ControllerTests {
 
     private VetController vetController;
     private VetService vetService;

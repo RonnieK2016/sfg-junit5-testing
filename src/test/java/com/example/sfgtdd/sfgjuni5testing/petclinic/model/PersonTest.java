@@ -1,13 +1,12 @@
 package com.example.sfgtdd.sfgjuni5testing.petclinic.model;
 
-import org.junit.jupiter.api.Tag;
+import com.example.sfgtdd.sfgjuni5testing.petclinic.ModelTests;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-@Tag("model")
-class PersonTest {
+class PersonTest implements ModelTests {
 
     @Test
     void groupedAssertionsDemo() {
