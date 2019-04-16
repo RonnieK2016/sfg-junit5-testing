@@ -1,0 +1,1 @@
+[![CircleCI](https://circleci.com/gh/RonnieK2016/sfg-junit5-testing.svg?style=svg)](https://circleci.com/gh/RonnieK2016/sfg-junit5-testing)
