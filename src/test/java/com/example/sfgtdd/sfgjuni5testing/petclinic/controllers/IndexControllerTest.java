@@ -9,6 +9,7 @@ import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.api.RepeatedTest.*;
 
 class IndexControllerTest implements ControllerTests {
 
@@ -82,5 +83,12 @@ class IndexControllerTest implements ControllerTests {
     @Test
     @EnabledIfEnvironmentVariable(named = "PROMPT", matches = "$P$G")
     void testEnvironmentProperty() {
+    }
+
+    @RepeatedTest(value = 5, name = DISPLAY_NAME_PLACEHOLDER + ": " + CURRENT_REPETITION_PLACEHOLDER
+            + " of " + TOTAL_REPETITIONS_PLACEHOLDER)
+    @DisplayName("Repeated Test Demo")
+    void repeatedTestDemo() {
+
     }
 }
