@@ -4,7 +4,6 @@ import com.example.sfgtdd.sfgjuni5testing.extensions.TimeLoggerExtension;
 import com.example.sfgtdd.sfgjuni5testing.petclinic.ControllerTests;
 import com.example.sfgtdd.sfgjuni5testing.petclinic.model.OwnerType;
 import com.example.sfgtdd.sfgjuni5testing.providers.CustomArgumentsProvider;
-import com.sun.tracing.dtrace.ProviderAttributes;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.*;
 import org.junit.jupiter.api.extension.ExtendWith;
