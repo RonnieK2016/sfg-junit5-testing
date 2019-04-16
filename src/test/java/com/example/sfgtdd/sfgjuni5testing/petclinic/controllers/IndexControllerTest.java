@@ -99,7 +99,8 @@ class IndexControllerTest implements ControllerTests {
                 + repetitionInfo.getCurrentRepetition() + " of " + repetitionInfo.getTotalRepetitions());
     }
 
-    @ParameterizedTest
+    @DisplayName("Parametrized Test Value")
+    @ParameterizedTest(name = "{displayName} - {arguments}")
     @ValueSource(strings = {"Test","Test2","Test3"})
     void parameterizedSourceValueDemo(String testValue) {
         System.out.println("Input value " + testValue);
