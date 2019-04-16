@@ -1,9 +1,11 @@
 package com.example.sfgtdd.sfgjuni5testing.petclinic.controllers;
 
 import com.example.sfgtdd.sfgjuni5testing.petclinic.ControllerTests;
+import com.example.sfgtdd.sfgjuni5testing.petclinic.model.OwnerType;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.*;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -104,5 +106,12 @@ class IndexControllerTest implements ControllerTests {
     @ValueSource(strings = {"Test","Test2","Test3"})
     void parameterizedSourceValueDemo(String testValue) {
         System.out.println("Input value " + testValue);
+    }
+
+    @DisplayName("Parametrized Test Value")
+    @ParameterizedTest(name = "{displayName} - {arguments}")
+    @EnumSource(OwnerType.class)
+    void parameterizedEnumSourceDemo(OwnerType ownerType) {
+        System.out.println("Input value " + ownerType);
     }
 }
