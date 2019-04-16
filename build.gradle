@@ -20,6 +20,10 @@ test {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
+
+    implementation 'javax.validation:validation-api'
+    implementation 'org.apache.commons:commons-lang3:3.8.1'
+
 	testImplementation('org.springframework.boot:spring-boot-starter-test'){
         exclude group: 'junit', module: 'junit' //by both name and group
     }
