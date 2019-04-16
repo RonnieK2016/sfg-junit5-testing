@@ -5,6 +5,7 @@ import com.example.sfgtdd.sfgjuni5testing.petclinic.model.OwnerType;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.*;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -113,5 +114,12 @@ class IndexControllerTest implements ControllerTests {
     @EnumSource(OwnerType.class)
     void parameterizedEnumSourceDemo(OwnerType ownerType) {
         System.out.println("Input value " + ownerType);
+    }
+
+    @DisplayName("Parametrized Test Value")
+    @ParameterizedTest(name = "{displayName} - {arguments}")
+    @CsvSource(delimiter = ';', value = {"1;2;3","4;5;6","7;8;9"})
+    void csvSourceDemo(int arg1, int arg2, int arg3) {
+        System.out.println("Input args " + arg1 + " " + arg2 + " " + arg3);
     }
 }
