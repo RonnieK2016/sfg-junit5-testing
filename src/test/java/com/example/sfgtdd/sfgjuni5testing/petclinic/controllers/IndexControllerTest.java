@@ -3,6 +3,7 @@ package com.example.sfgtdd.sfgjuni5testing.petclinic.controllers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,5 +29,11 @@ class IndexControllerTest {
     @DisplayName("Testing Not Implemented Feature View Name")
     void oupsHandler() {
         assertEquals("notimplemented", indexController.oupsHandler(), () -> "Another Custom Message to be shown on error!");
+    }
+
+    @Test
+    @DisplayName("Testing Exception for GetAll method")
+    void testNotImplementedException() {
+        assertThrows(NotImplementedException.class, () -> indexController.getAll());
     }
 }
