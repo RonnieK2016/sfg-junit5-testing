@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.time.Duration;
@@ -58,5 +59,30 @@ class IndexControllerTest {
     @Test
     void testAssumptionDemo() {
         assumeTrue("TEST".equalsIgnoreCase("NOT TEST"));
+    }
+
+    @Test
+    @EnabledOnOs(OS.WINDOWS)
+    void testOnWindows() {
+    }
+
+    @Test
+    @EnabledOnOs(OS.MAC)
+    void testOnMac() {
+    }
+
+    @Test
+    @EnabledOnJre(JRE.JAVA_8)
+    void testOnJava8() {
+    }
+
+    @Test
+    @EnabledOnJre(JRE.JAVA_11)
+    void testOnJava11() {
+    }
+
+    @Test
+    @EnabledIfEnvironmentVariable(named = "PROMPT", matches = "$P$G")
+    void testEnvironmentProperty() {
     }
 }
