@@ -5,6 +5,7 @@ import com.example.sfgtdd.sfgjuni5testing.petclinic.model.OwnerType;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.*;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -62,7 +63,7 @@ class IndexControllerTest implements ControllerTests {
 
     @Test
     void testAssumptionDemo() {
-        assumeTrue("TEST".equalsIgnoreCase("NOT TEST"));
+        assumeTrue("TEST".equalsIgnoreCase("TEST"));
     }
 
     @Test
@@ -109,17 +110,24 @@ class IndexControllerTest implements ControllerTests {
         System.out.println("Input value " + testValue);
     }
 
-    @DisplayName("Parametrized Test Value")
+    @DisplayName("Parametrized Enum Source")
     @ParameterizedTest(name = "{displayName} - {arguments}")
     @EnumSource(OwnerType.class)
     void parameterizedEnumSourceDemo(OwnerType ownerType) {
         System.out.println("Input value " + ownerType);
     }
 
-    @DisplayName("Parametrized Test Value")
+    @DisplayName("Parametrized CSV Value Test ")
     @ParameterizedTest(name = "{displayName} - {arguments}")
     @CsvSource(delimiter = ';', value = {"1;2;3","4;5;6","7;8;9"})
     void csvSourceDemo(int arg1, int arg2, int arg3) {
+        System.out.println("Input args " + arg1 + " " + arg2 + " " + arg3);
+    }
+
+    @DisplayName("Parametrized CSV File Test")
+    @ParameterizedTest(name = "{displayName} - {arguments}")
+    @CsvFileSource(resources = "/input.csv", delimiter = ';')
+    void csvFileSourceDemo(int arg1, int arg2, int arg3) {
         System.out.println("Input args " + arg1 + " " + arg2 + " " + arg3);
     }
 }
