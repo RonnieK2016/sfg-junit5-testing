@@ -9,6 +9,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class IndexControllerTest {
 
@@ -52,5 +53,10 @@ class IndexControllerTest {
     @DisplayName("Testing Preemptive Timeout")
     void testPreemptiveTimeout() {
         assertTimeoutPreemptively(Duration.ofMillis(100), () ->{ Thread.sleep(2000);});
+    }
+
+    @Test
+    void testAssumptionDemo() {
+        assumeTrue("TEST".equalsIgnoreCase("NOT TEST"));
     }
 }
