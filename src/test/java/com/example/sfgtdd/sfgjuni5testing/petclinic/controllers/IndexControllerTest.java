@@ -1,9 +1,12 @@
 package com.example.sfgtdd.sfgjuni5testing.petclinic.controllers;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,5 +38,19 @@ class IndexControllerTest {
     @DisplayName("Testing Exception for GetAll method")
     void testNotImplementedException() {
         assertThrows(NotImplementedException.class, () -> indexController.getAll());
+    }
+
+    @Test
+    @Disabled
+    @DisplayName("Testing Timeout")
+    void testTimeout() {
+        assertTimeout(Duration.ofMillis(100), () ->{ Thread.sleep(2000);});
+    }
+
+    @Test
+    @Disabled
+    @DisplayName("Testing Preemptive Timeout")
+    void testPreemptiveTimeout() {
+        assertTimeoutPreemptively(Duration.ofMillis(100), () ->{ Thread.sleep(2000);});
     }
 }
