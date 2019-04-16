@@ -3,6 +3,8 @@ package com.example.sfgtdd.sfgjuni5testing.petclinic.controllers;
 import com.example.sfgtdd.sfgjuni5testing.petclinic.ControllerTests;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.time.Duration;
@@ -95,5 +97,11 @@ class IndexControllerTest implements ControllerTests {
     void repeatedTestWithDI(TestInfo testInfo, RepetitionInfo repetitionInfo) {
         System.out.println(testInfo.getDisplayName() + ": "
                 + repetitionInfo.getCurrentRepetition() + " of " + repetitionInfo.getTotalRepetitions());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"Test","Test2","Test3"})
+    void parameterizedSourceValueDemo(String testValue) {
+        System.out.println("Input value " + testValue);
     }
 }
