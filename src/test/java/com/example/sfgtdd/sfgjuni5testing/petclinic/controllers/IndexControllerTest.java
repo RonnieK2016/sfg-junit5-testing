@@ -1,11 +1,13 @@
 package com.example.sfgtdd.sfgjuni5testing.petclinic.controllers;
 
+import com.example.sfgtdd.sfgjuni5testing.extensions.TimeLoggerExtension;
 import com.example.sfgtdd.sfgjuni5testing.petclinic.ControllerTests;
 import com.example.sfgtdd.sfgjuni5testing.petclinic.model.OwnerType;
 import com.example.sfgtdd.sfgjuni5testing.providers.CustomArgumentsProvider;
 import com.sun.tracing.dtrace.ProviderAttributes;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -17,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.junit.jupiter.api.RepeatedTest.*;
 
+@ExtendWith(TimeLoggerExtension.class)
 class IndexControllerTest implements ControllerTests {
 
     private IndexController indexController;
