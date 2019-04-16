@@ -2,6 +2,8 @@ package com.example.sfgtdd.sfgjuni5testing.petclinic.controllers;
 
 import com.example.sfgtdd.sfgjuni5testing.petclinic.ControllerTests;
 import com.example.sfgtdd.sfgjuni5testing.petclinic.model.OwnerType;
+import com.example.sfgtdd.sfgjuni5testing.providers.CustomArgumentsProvider;
+import com.sun.tracing.dtrace.ProviderAttributes;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -137,6 +139,13 @@ class IndexControllerTest implements ControllerTests {
     @ParameterizedTest(name = "{displayName} - {arguments}")
     @MethodSource("sourceArguments")
     void methodSourceValueDemo(int arg1, int arg2, int arg3) {
+        System.out.println("Input args " + arg1 + " " + arg2 + " " + arg3);
+    }
+
+    @DisplayName("Parametrized Custom Provider Test")
+    @ParameterizedTest(name = "{displayName} - {arguments}")
+    @ArgumentsSource(CustomArgumentsProvider.class)
+    void customArgumentsProviderDemo(int arg1, int arg2, int arg3) {
         System.out.println("Input args " + arg1 + " " + arg2 + " " + arg3);
     }
 }
