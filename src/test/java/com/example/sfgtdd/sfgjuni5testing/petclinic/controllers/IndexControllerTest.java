@@ -1,6 +1,7 @@
 package com.example.sfgtdd.sfgjuni5testing.petclinic.controllers;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,6 +17,7 @@ class IndexControllerTest {
     }
 
     @Test
+    @DisplayName("Testing Proper View Name for Index Page")
     void index() {
         assertEquals("index", indexController.index(), () -> "Custom message to show on error!");
         //another way to validate
@@ -23,6 +25,7 @@ class IndexControllerTest {
     }
 
     @Test
+    @DisplayName("Testing Not Implemented Feature View Name")
     void oupsHandler() {
         assertEquals("notimplemented", indexController.oupsHandler(), () -> "Another Custom Message to be shown on error!");
     }
