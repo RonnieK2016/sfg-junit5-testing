@@ -2,6 +2,7 @@ package com.example.sfgtdd.sfgjuni5testing.petclinic.model;
 
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PersonTest {
@@ -20,6 +21,8 @@ class PersonTest {
                 () -> assertEquals("James", person.getLastName(), "Last Name Validation Failed"),
                 () -> assertEquals(Long.valueOf(1L), person.getId(), "Id Validation Failed")
                 );
+
+        assertThat(person).extracting("id","firstName","lastName").containsExactly(1L, "Jessie", "James");
     }
 
 }
