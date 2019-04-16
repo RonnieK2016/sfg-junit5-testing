@@ -88,7 +88,12 @@ class IndexControllerTest implements ControllerTests {
     @RepeatedTest(value = 5, name = DISPLAY_NAME_PLACEHOLDER + ": " + CURRENT_REPETITION_PLACEHOLDER
             + " of " + TOTAL_REPETITIONS_PLACEHOLDER)
     @DisplayName("Repeated Test Demo")
-    void repeatedTestDemo() {
+    void repeatedTestDemo() { }
 
+    @RepeatedTest(5)
+    @DisplayName("Repeated Test with DI")
+    void repeatedTestWithDI(TestInfo testInfo, RepetitionInfo repetitionInfo) {
+        System.out.println(testInfo.getDisplayName() + ": "
+                + repetitionInfo.getCurrentRepetition() + " of " + repetitionInfo.getTotalRepetitions());
     }
 }
