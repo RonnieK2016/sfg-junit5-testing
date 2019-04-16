@@ -5,13 +5,11 @@ import com.example.sfgtdd.sfgjuni5testing.petclinic.model.OwnerType;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.*;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.EnumSource;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.time.Duration;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
@@ -128,6 +126,17 @@ class IndexControllerTest implements ControllerTests {
     @ParameterizedTest(name = "{displayName} - {arguments}")
     @CsvFileSource(resources = "/input.csv", delimiter = ';')
     void csvFileSourceDemo(int arg1, int arg2, int arg3) {
+        System.out.println("Input args " + arg1 + " " + arg2 + " " + arg3);
+    }
+
+    Stream<Arguments> sourceArguments() {
+        return Stream.of(Arguments.of(3,2,1),Arguments.of(6,5,4), Arguments.of(9,8,7));
+    }
+
+    @DisplayName("Parametrized Method Source Test")
+    @ParameterizedTest(name = "{displayName} - {arguments}")
+    @MethodSource("sourceArguments")
+    void methodSourceValueDemo(int arg1, int arg2, int arg3) {
         System.out.println("Input args " + arg1 + " " + arg2 + " " + arg3);
     }
 }
