@@ -8,6 +8,7 @@ import com.example.sfgtdd.sfgjuni5testing.petclinic.services.VetService;
 import com.example.sfgtdd.sfgjuni5testing.petclinic.services.map.SpecialityMapService;
 import com.example.sfgtdd.sfgjuni5testing.petclinic.services.map.VetMapService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
@@ -15,6 +16,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Tag("controllers")
 class VetControllerTest {
 
     private VetController vetController;
