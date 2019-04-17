@@ -8,23 +8,18 @@ import com.example.sfgtdd.sfgjuni5testing.petclinic.services.OwnerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.in;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
-import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class OwnerControllerTest {
@@ -99,6 +94,8 @@ class OwnerControllerTest {
         assertThat(stringArgumentCaptor.getValue()).isEqualTo("%" + owner.getLastName() + "%");
 
         assertThat(viewName).isEqualTo("redirect:/owners/" + owner.getId());
+
+        verifyZeroInteractions(bindingResult);
     }
 
     @Test
@@ -117,15 +114,24 @@ class OwnerControllerTest {
 
     @Test
     void testProcessFormResultsEmpty() {
+        //given
         Owner owner = new Owner(5L, "James","Test");
         Model model = new ModelImpl();
+        InOrder inOrder = inOrder(ownerService, bindingResult);
 
+        //when
         String viewName = ownerController.processFindForm(owner, bindingResult, model);
 
+        //then
         assertThat(stringArgumentCaptor.getValue()).isEqualTo("%" + owner.getLastName() + "%");
-
         then(bindingResult).should().rejectValue(anyString(), anyString(), anyString());
+        then(ownerService).should().findAllByLastNameLike(anyString());
+        verifyNoMoreInteractions(ownerService);
+        verifyNoMoreInteractions(bindingResult);
 
+
+        inOrder.verify(ownerService).findAllByLastNameLike(anyString());
+        inOrder.verify(bindingResult).rejectValue(anyString(), anyString(), anyString());
         assertThat(viewName).isEqualTo("owners/findOwners");
     }
 }
