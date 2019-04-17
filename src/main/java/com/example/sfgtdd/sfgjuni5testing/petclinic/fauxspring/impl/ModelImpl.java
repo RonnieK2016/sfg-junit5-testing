@@ -32,4 +32,8 @@ public class ModelImpl implements Model {
     public Object getAttribute(String key) {
         return modelAttributes.get(key);
     }
+
+    public boolean hasAttribute(String key) {
+        return  modelAttributes.containsKey(key);
+    }
 }

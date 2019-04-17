@@ -7,4 +7,6 @@ public interface Model {
     void addAttribute(Object o);
 
     Object getAttribute(String key);
+
+    boolean hasAttribute(String key);
 }

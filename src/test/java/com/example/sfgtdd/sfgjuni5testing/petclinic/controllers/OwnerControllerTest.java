@@ -13,11 +13,15 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.in;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.never;
@@ -25,7 +29,7 @@ import static org.mockito.Mockito.never;
 @ExtendWith(MockitoExtension.class)
 class OwnerControllerTest {
 
-    @Mock
+    @Mock(lenient = true)
     private OwnerService ownerService;
 
     @Mock
@@ -39,6 +43,22 @@ class OwnerControllerTest {
     @BeforeEach
     void setUp() {
         ownerController = new OwnerController(ownerService);
+        given(ownerService.findAllByLastNameLike(stringArgumentCaptor.capture())).will(invocation -> {
+            String argValue = invocation.getArgument(0);
+
+            List<Owner> owners = new ArrayList<>();
+
+            if(argValue.equals("%Woods%")) {
+               owners.add(new Owner(5L, "James","Woods"));
+            }
+            else if(argValue.equals("%%")) {
+                owners.add(new Owner(5L, "James","Woods"));
+                owners.add(new Owner(6L, "James","Woods"));
+            }
+
+            return owners;
+        });
+
     }
 
     @Test
@@ -70,25 +90,42 @@ class OwnerControllerTest {
     }
 
     @Test
-    void testProcessFormArgCaptor() {
+    void testProcessFormArgCaptorAnnotation() {
         Owner owner = new Owner(5L, "James","Woods");
-        ArgumentCaptor<String> stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
-        given(ownerService.findAllByLastNameLike(stringArgumentCaptor.capture())).willReturn(Arrays.asList(owner));
         Model model = new ModelImpl();
 
-        ownerController.processFindForm(owner, bindingResult, model);
+        String viewName = ownerController.processFindForm(owner, bindingResult, model);
 
         assertThat(stringArgumentCaptor.getValue()).isEqualTo("%" + owner.getLastName() + "%");
+
+        assertThat(viewName).isEqualTo("redirect:/owners/" + owner.getId());
     }
 
     @Test
-    void testProcessFormArgCaptorAnnotation() {
-        Owner owner = new Owner(5L, "James","Woods");
-        given(ownerService.findAllByLastNameLike(stringArgumentCaptor.capture())).willReturn(Arrays.asList(owner));
+    void testProcessFormLastNameEmpty() {
+        Owner owner = new Owner(5L, "James",null);
         Model model = new ModelImpl();
 
-        ownerController.processFindForm(owner, bindingResult, model);
+        String viewName = ownerController.processFindForm(owner, bindingResult, model);
+
+        assertThat(stringArgumentCaptor.getValue()).isEqualTo("%%");
+
+        assertTrue(model.hasAttribute("selections"));
+
+        assertThat(viewName).isEqualTo("owners/ownersList");
+    }
+
+    @Test
+    void testProcessFormResultsEmpty() {
+        Owner owner = new Owner(5L, "James","Test");
+        Model model = new ModelImpl();
+
+        String viewName = ownerController.processFindForm(owner, bindingResult, model);
 
         assertThat(stringArgumentCaptor.getValue()).isEqualTo("%" + owner.getLastName() + "%");
+
+        then(bindingResult).should().rejectValue(anyString(), anyString(), anyString());
+
+        assertThat(viewName).isEqualTo("owners/findOwners");
     }
 }
