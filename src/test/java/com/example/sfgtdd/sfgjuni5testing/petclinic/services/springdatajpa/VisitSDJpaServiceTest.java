@@ -15,8 +15,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
+import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -94,4 +93,47 @@ class VisitSDJpaServiceTest {
         then(visitRepository).should().deleteById(1L);
         then(visitRepository).should(never()).deleteById(2L);
     }
+
+    @Test
+    void testThrowException1() {
+        doThrow(new RuntimeException("Test")).when(visitRepository).deleteById(1L);
+
+        assertThrows(RuntimeException.class, () -> visitRepository.deleteById(1L));
+
+        then(visitRepository).should().deleteById(1L);
+    }
+
+    @Test
+    void testThrowException2() {
+        given(visitRepository.findById(1L)).willThrow(RuntimeException.class);
+
+        assertThrows(RuntimeException.class, () -> visitRepository.findById(1L));
+
+        then(visitRepository).should().findById(1L);
+    }
+
+    @Test
+    void testThrowException3() {
+        willThrow(RuntimeException.class).given(visitRepository).delete(any(Visit.class));
+
+        assertThrows(RuntimeException.class, () -> visitRepository.delete(new Visit()));
+
+        then(visitRepository).should().delete(any(Visit.class));
+    }
+
+    @Test
+    void testSaveArgMatcher() {
+        //given
+        final Long ID = 1L;
+        Visit visit = new Visit(ID);
+        given(visitRepository.save(argThat(argument -> argument.getId().equals(ID)))).willReturn(visit);
+
+        //when
+        Visit savedVisit = visitSDJpaService.save(visit);
+
+        //then
+        then(visitRepository).should().save(any(Visit.class));
+        assertNotNull(savedVisit);
+    }
+
 }
