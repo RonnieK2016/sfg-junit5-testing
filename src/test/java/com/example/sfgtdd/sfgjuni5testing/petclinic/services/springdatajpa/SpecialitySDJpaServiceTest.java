@@ -5,10 +5,13 @@ import com.example.sfgtdd.sfgjuni5testing.petclinic.repositories.SpecialtyReposi
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -22,6 +25,21 @@ class SpecialitySDJpaServiceTest {
     @BeforeEach
     void setUp() {
         specialitySDJpaService = new SpecialitySDJpaService(specialtyRepository);
+    }
+
+    @Test
+    void testFindById() {
+        //given
+        Speciality speciality = new Speciality(1L, "Test");
+
+        //when
+        when(specialtyRepository.findById(1L)).thenReturn(Optional.of(speciality));
+
+        //then
+        Speciality returnedSpeciality = specialitySDJpaService.findById(1L);
+        assertNotNull(returnedSpeciality);
+        assertEquals(Long.valueOf(1L), returnedSpeciality.getId());
+        assertEquals("Test", returnedSpeciality.getDescription());
     }
 
     @Test
